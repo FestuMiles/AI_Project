@@ -7,7 +7,7 @@ class TicTacToe:
         self.player_starts = True
         
         # Call the welcome screen first
-        self.show_welcome_screen()
+        self.mainWindow()
 
     def center_window(self, width, height):
         # Get the screen width and height
@@ -19,10 +19,10 @@ class TicTacToe:
         y = (screen_height // 2) - (height // 2)
         self.root.geometry(f"{width}x{height}+{x}+{y}")
 
-    def show_welcome_screen(self):
+    def mainWindow(self):
         # Create a welcome window to choose the game options
         self.root = tk.Tk()
-        self.root.title("Tic Tac Toe - Choose Options")
+        self.root.title("Tic Tac Toe - Main")
         self.root.configure(bg="#2E2E2E")  # Dark background
         self.root.resizable(False, False)  # Make the window unresizable
         self.center_window(400, 400)
@@ -52,14 +52,14 @@ class TicTacToe:
         self.root.destroy()
 
         # Start the game
-        self.show_game_screen()
+        self.game_window()
 
     def show_turn_choice_popup(self):
         # Show a popup messagebox to ask who goes first
         response = messagebox.askyesno("Turn Order", "Do you want to go first? (Yes for Player, No for AI)", icon='question')
         self.player_starts = response  # Player starts if Yes, AI starts if No
 
-    def show_game_screen(self):
+    def game_window(self):
         # Initialize game variables
         self.board = [0] * 9  # 0 represents empty, -1 for X, 1 for O
         self.current_player = -1 if self.player_starts else 1  # Start with player X or O depending on user choice
@@ -78,6 +78,7 @@ class TicTacToe:
         self.btnFrame.columnconfigure(1, weight=1)
         self.btnFrame.columnconfigure(2, weight=1)
 
+        # Adding buttons on the buttun frame
         self.buttons = []
         for i in range(9):
             btn = tk.Button(self.btnFrame, text=" ", font=("Arial", 16), height=5, command=lambda i=i: self.clickEvent(i), bg="#4B4B4B", fg="#FFFFFF")
@@ -228,7 +229,7 @@ class TicTacToe:
     def go_to_main_menu(self):
         # Close the game screen and show the welcome screen again
         self.root.destroy()  # Close the current game window
-        self.show_welcome_screen()  # Go back to the welcome screen
+        self.mainWindow()  # Go back to the welcome screen
 
 # Run the game
 TicTacToe()
